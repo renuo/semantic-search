@@ -2,6 +2,12 @@
 
 This plugin enhances Redmine by adding a motivation center that helps boost team morale and engagement.
 
+> Note: This Plugin Boilerplate was generated using Redmine 4.x and Rails 6.1, so make sure your migrations match up.
+
+## Help
+
+If at any point while developing your plugin you face certain issues, simply refer to this [documentation](https://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial).
+
 ## Features
 
 - Motivation ✅
