@@ -4,10 +4,7 @@ This plugin enhances Redmine by adding a motivation center that helps boost team
 
 ## Features
 
-- Motivational quotes and messages
-- Team achievements tracking
-- Performance insights
-- Engagement metrics
+- Motivation ✅
 
 ## Installation
 
