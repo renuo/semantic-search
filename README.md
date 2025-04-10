@@ -70,4 +70,8 @@ For support, please open an issue in the GitHub repository or contact the Renuo 
 
 ## Authors
 
-- Renuo AG Team
+- Renuo AG
+
+## Copyright
+
+2025 Renuo AG
