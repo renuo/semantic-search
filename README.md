@@ -1,16 +1,15 @@
-# Motivation Center Plugin for Redmine
+# Semantic Search Plugin for Redmine
 
-This plugin enhances Redmine by adding a motivation center that helps boost team morale and engagement.
-
-> Note: This Plugin Boilerplate was generated using Redmine 4.x and Rails 6.1, so make sure your migrations match up.
+This plugin enhances the default Redmine Search Functionality by adding Embeddings to each issue using `pgvector`.
 
 ## Help
 
-If at any point while developing your plugin you face certain issues, simply refer to this [documentation](https://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial).
+If at any point while developing your plugin you face certain problems, just open an issue.
 
 ## Features
 
-- Motivation ✅
+- Search for issues by entering a question
+- Get a detailed list of issues without needing to know specific keywords
 
 ## Installation
 
@@ -18,7 +17,7 @@ If at any point while developing your plugin you face certain issues, simply ref
 
 ```bash
 cd /path/to/redmine/plugins
-git clone https://github.com/renuo/renuo-redmine-motivation-center.git motivation_center
+git clone https://github.com/renuo/redmine-semantic-search.git
 ```
 
 2. Install dependencies:
@@ -35,9 +34,11 @@ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
 ## Configuration
 
+> Before continuing, make sure you have set an Environment Variable called `OPENAI_API_KEY`. Get your API Key from [here](https://platform.openai.com/api-keys).
+
 1. Log into Redmine as an administrator
 2. Go to Administration > Plugins
-3. Find "Motivation Center" in the list
+3. Find "Semantic Search" in the list
 4. Click "Configure" to set up your preferences
 
 ## Development
@@ -70,7 +71,7 @@ For support, please open an issue in the GitHub repository or contact the Renuo 
 
 ## Authors
 
-- Renuo AG
+Sami Hindi @ Renuo AG.
 
 ## Copyright
 
