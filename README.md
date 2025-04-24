@@ -4,7 +4,7 @@ This plugin enhances the default Redmine Search Functionality by adding Embeddin
 
 ## Help
 
-If at any point while developing your plugin you face certain problems, just open an issue.
+If at any point while using this plugin you face certain problems, just open an issue.
 
 ## Features
 
