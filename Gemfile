@@ -1,5 +1,3 @@
 gem "dotenv-rails"
 gem "neighbor"
-gem "rubocop-performance"
-gem "rubocop-rails"
 gem "ruby-openai"
