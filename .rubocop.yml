@@ -8,6 +8,8 @@ AllCops:
     - "script/**/*"
     - "test/**/*"
     - "vendor/**/*"
+    - "init.rb"
+    - "lib/**/*"
 
 Style/Documentation:
   Enabled: false
@@ -31,4 +33,7 @@ Style/GuardClause:
   Enabled: false
 
 Style/IfUnlessModifier:
+  Enabled: false
+
+Style/Proc:
   Enabled: false
