@@ -10,7 +10,8 @@ class SemanticSearchController < ApplicationController
 
     if @question.present?
       search_service = SemanticSearchService.new
-      @results = search_service.search(@question, User.current, 25)
+      search_limit = Setting.plugin_semantic_search['search_limit'].to_i
+      @results = search_service.search(@question, User.current, search_limit)
     end
 
     render layout: 'base'
