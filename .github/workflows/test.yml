@@ -1,0 +1,94 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      REDMINE_VERSION: 5.1.1
+
+    services:
+      postgres:
+        image: ankane/pgvector:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Cache Redmine
+        id: cache-redmine
+        uses: actions/cache@v3
+        with:
+          path: redmine
+          key: redmine-${{ env.REDMINE_VERSION }}
+
+      - name: Checkout redmine repository
+        if: steps.cache-redmine.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: redmine/redmine
+          path: redmine
+          ref: ${{ env.REDMINE_VERSION }}
+
+      - name: Checkout plugin
+        uses: actions/checkout@v4
+        with:
+          path: redmine/plugins/semantic_search
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+          working-directory: redmine
+
+      - name: Install dependencies
+        working-directory: redmine
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+          bundle install
+
+      - name: Configure database
+        working-directory: redmine
+        run: |
+          cp config/database.yml.example config/database.yml
+          sed -i 's/adapter: mysql2/adapter: postgresql/g' config/database.yml
+          sed -i 's/database: redmine/database: redmine_test/g' config/database.yml
+          sed -i 's/username: root/username: postgres/g' config/database.yml
+          sed -i 's/password: ""/password: "postgres"/g' config/database.yml
+          sed -i 's/encoding: utf8mb4/encoding: unicode/g' config/database.yml
+
+      - name: Setup database
+        working-directory: redmine
+        run: |
+          RAILS_ENV=test bundle exec rake db:create
+          RAILS_ENV=test bundle exec rake db:migrate
+          RAILS_ENV=test bundle exec rake redmine:plugins:migrate
+
+      - name: Enable pgvector extension
+        run: |
+          PGPASSWORD=postgres psql -h localhost -U postgres -d redmine_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+      - name: Run tests
+        working-directory: redmine
+        run: |
+          bundle exec rake redmine:plugins:test NAME=semantic_search

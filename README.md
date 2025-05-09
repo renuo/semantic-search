@@ -136,6 +136,21 @@ The tests are written with MiniTest, the default testing framework for Ruby on R
 bundle exec rake redmine:plugins:test NAME=semantic_search
 ```
 
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration and testing:
+
+- **CI Workflow**: Runs linting and syntax checks on every push and pull request
+- **Test Workflow**: Sets up a complete Redmine environment and runs all plugin tests
+
+To run the workflows locally, you can use [act](https://github.com/nektos/act).
+
+### GitHub Secrets
+
+The test workflow requires the following GitHub secret to be configured:
+
+- `OPENAI_API_KEY`: A valid OpenAI API key for testing embedding functionality
+
 ## License
 
 This plugin is licensed under the MIT License.
