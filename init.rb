@@ -1,4 +1,3 @@
-require 'logger'
 require 'dotenv/load'
 require 'ruby/openai'
 
