@@ -74,7 +74,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libpq-dev
-          bundle install
+          bundle install --verbose
+          echo "--- Installed pg gems ---"
+          bundle exec gem list pg
+          echo "--- Bundle platform ---"
+          bundle platform
+          echo "-----------------------"
 
       - name: Setup database
         working-directory: redmine
