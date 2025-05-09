@@ -92,7 +92,7 @@ jobs:
         working-directory: redmine
         run: |
           sudo apt-get update
-          sudo apt-get install -y libpq-dev
+          sudo apt-get install -y libpq-dev libxss1 libappindicator3-1 libindicator7
           bundle install --verbose
           echo "--- Installed pg gems ---"
           bundle exec gem list pg
