@@ -1,78 +1,158 @@
 # Semantic Search Plugin for Redmine
 
-This plugin enhances the default Redmine Search Functionality by adding Embeddings to each issue using `pgvector`.
+This Redmine plugin enables AI-based semantic search functionality using OpenAI embeddings and PostgreSQL's pgvector extension. It allows users to search for tickets using natural language queries rather than exact keyword matches.
+
+## Features
+
+- Semantic search across issue content (subject, description, comments, time entries)
+- Vector similarity search using OpenAI embeddings
+- Background processing for embedding generation
+- Role-based access control (Developer and Manager roles)
+- Compatible with Redmine 5.1.x and 6.0.x
+
+## Requirements
+
+- Redmine 5.1.x or 6.0.x
+- PostgreSQL 12+ with pgvector extension installed
+- Ruby 3.2.x
+- Valid OpenAI API key
+
+## Installation
+
+### Pre-requisities
+
+You must have an up-to-date Redmine instance available locally:
+
+```bash
+g clone git@github.com:redmine/redmine.git
+cd redmine
+cp config/database.example.yml database.yml
+```
+
+Make sure to configure `database.yml` to use PostgreSQL, and not MySQL.
+
+For example:
+
+```yaml
+production:
+  adapter: postgresql
+  database: redmine
+  host: localhost
+  username: postgres
+  password: "postgres"
+  encoding: unicode
+
+development:
+  adapter: postgresql
+  database: redmine_development
+  host: localhost
+  username: postgres
+  password: "postgres"
+  encoding: unicode
+
+test:
+  adapter: postgresql
+  database: redmine_test
+  host: localhost
+  username: postgres
+  password: "postgres"
+  encoding: unicode
+```
+
+### 1. Install PostgreSQL and the pgvector extension
+
+On macOS, you can use Homebrew:
+
+```bash
+brew install postgresql pgvector
+```
+
+### 2. Enable the extension in your database
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+### 3. Install the plugin
+
+From your Redmine installation directory:
+
+```bash
+cd plugins
+git clone https://github.com/renuo/redmine-semantic-search.git semantic_search
+cd ..
+bundle install
+RAILS_ENV=production bin/rake redmine:plugins:migrate
+```
+
+### 4. Set up the OpenAI API key
+
+Configure your environment variableby copying `.env.example`:
+
+```bash
+cp .env.example .env
+vim .env
+```
+
+### 5. Restart your Redmine application
+
+```bash
+touch tmp/restart.txt # or just ctrl-c and rerun
+```
+
+## Configuration
+
+1. Log in as an administrator
+2. Go to Administration > Plugins
+3. Click "Configure" next to the Semantic Search plugin
+4. Adjust settings as needed
+
+## Usage
+
+1. Ensure your user has a Developer or Manager role in at least one project
+2. Click on "Semantic Search" in the top menu
+3. Enter a natural language query (e.g., "Issues about login problems with the mobile app")
+4. View the results ordered by semantic relevance
+
+## How It Works
+
+1. The plugin creates embeddings for issues when they are created or updated
+2. Embeddings are stored in a separate database table using pgvector
+3. When a search is performed, the query is converted to an embedding
+4. PostgreSQL's vector similarity search finds the most semantically similar issues
+5. Results are filtered based on user permissions
+
+## Development
+
+Once you have setup the Redmine Instance with
+
+## Testing
+
+> **Note 📒**: Make sure you are in Redmine's root directory before running the tests
+
+The tests are written with MiniTest, the default testing framework for Ruby on Rails.
+
+```bash
+bundle exec rake redmine:plugins:test NAME=semantic_search
+```
+
+## License
+
+This plugin is licensed under the MIT License.
+
+## Author
+
+- [Sami Hindi](https://samihindi.com)
+
+<!--
+## Redmine Credentials
+
+- `admin:Thisisatestpassword123!` -->
 
 ## Help
 
 If at any point while using this plugin you face certain problems, just open an issue.
 
-## Features
-
-- Search for issues by entering a question
-- Get a detailed list of issues without needing to know specific keywords
-
-## Installation
-
-1. Clone this repository into your Redmine plugins directory:
-
-```bash
-cd /path/to/redmine/plugins
-git clone https://github.com/renuo/redmine-semantic-search.git
-```
-
-2. Install dependencies:
-
-```bash
-bundle install
-```
-
-3. Run the plugin migrations:
-
-```bash
-bundle exec rake redmine:plugins:migrate RAILS_ENV=production
-```
-
-## Configuration
-
-> Before continuing, make sure you have set an Environment Variable called `OPENAI_API_KEY`. Get your API Key from [here](https://platform.openai.com/api-keys).
-
-1. Log into Redmine as an administrator
-2. Go to Administration > Plugins
-3. Find "Semantic Search" in the list
-4. Click "Configure" to set up your preferences
-
-## Development
-
-To set up the development environment:
-
-1. Clone the repository
-2. Install dependencies
-3. Run tests:
-
-```bash
-bundle exec rake redmine:plugins:test NAME=motivation_center
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the GitHub repository or contact the Renuo team.
-
-## Authors
-
-Sami Hindi @ Renuo AG.
-
 ## Copyright
 
-2025 Renuo AG
+© 2025 Renuo AG
