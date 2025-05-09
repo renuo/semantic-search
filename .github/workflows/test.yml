@@ -57,15 +57,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
-          bundler-cache: true
           working-directory: redmine
-
-      - name: Install dependencies
-        working-directory: redmine
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libpq-dev
-          bundle install
 
       - name: Configure database
         working-directory: redmine
@@ -76,6 +68,13 @@ jobs:
           sed -i 's/username: root/username: postgres/g' config/database.yml
           sed -i 's/password: ""/password: "postgres"/g' config/database.yml
           sed -i 's/encoding: utf8mb4/encoding: unicode/g' config/database.yml
+
+      - name: Install dependencies
+        working-directory: redmine
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+          bundle install
 
       - name: Setup database
         working-directory: redmine
