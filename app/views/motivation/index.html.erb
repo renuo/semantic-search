@@ -1,9 +1,0 @@
-<h2>Motivation Center</h2>
-
-<%= form_tag({ controller: 'motivation', action: 'update' }, method: :post) do %>
-  <p>
-    <label for="message">Message:</label><br>
-    <%= text_area_tag :message, @message, rows: 4, cols: 60 %>
-  </p>
-  <%= submit_tag 'Save' %>
-<% end %>

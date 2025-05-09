@@ -1,0 +1,44 @@
+<div class="search-result-issue">
+  <dt class="issue-header">
+    <div class="issue-title">
+      <%= link_to "Issue ##{issue['issue_id']}: #{issue['subject']}",
+                  issue_path(issue['issue_id']),
+                  class: 'issue-link' %>
+    </div>
+    <div class="issue-meta">
+      <span class="status <%= h(issue['status_name']).downcase.gsub(' ', '-') %>"><%= issue['status_name'] %></span>
+      <% if issue['priority_name'].present? %>
+        <span class="priority <%= h(issue['priority_name']).downcase.gsub(' ', '-') %>"><%= issue['priority_name'] %></span>
+      <% end %>
+    </div>
+  </dt>
+  <dd class="issue-body">
+    <% if issue['description'].present? %>
+      <div class="description">
+        <%= textilizable(issue['description'], :object => Issue.find_by(id: issue['issue_id']), :headings => false) %>
+      </div>
+    <% end %>
+
+    <div class="issue-footer">
+      <p class="author">
+        <%= authoring issue['created_on'], issue['author_name'] %>.
+      </p>
+
+      <div class="attributes">
+        <% if issue['assigned_to_name'].present? %>
+          <div class="attribute">
+            <span class="label"><%= l(:field_assigned_to) %>:</span>
+            <span class="value"><%= issue['assigned_to_name'] %></span>
+          </div>
+        <% end %>
+
+        <% if issue['similarity_score'].present? %>
+          <div class="attribute">
+            <span class="label"><%= l(:label_similarity_score) %>:</span>
+            <span class="value"><%= number_to_percentage(issue['similarity_score'] * 100, precision: 1) %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </dd>
+</div>
