@@ -62,12 +62,31 @@ jobs:
       - name: Configure database
         working-directory: redmine
         run: |
-          cp config/database.yml.example config/database.yml
-          sed -i 's/adapter: mysql2/adapter: postgresql/g' config/database.yml
-          sed -i 's/database: redmine/database: redmine_test/g' config/database.yml
-          sed -i 's/username: root/username: postgres/g' config/database.yml
-          sed -i 's/password: ""/password: "postgres"/g' config/database.yml
-          sed -i 's/encoding: utf8mb4/encoding: unicode/g' config/database.yml
+          cat <<'EOF' > config/database.yml
+          production:
+            adapter: postgresql
+            database: redmine
+            host: localhost
+            username: postgres
+            password: "postgres"
+            encoding: unicode
+
+          development:
+            adapter: postgresql
+            database: redmine_development
+            host: localhost
+            username: postgres
+            password: "postgres"
+            encoding: unicode
+
+          test:
+            adapter: postgresql
+            database: redmine_test
+            host: localhost
+            username: postgres
+            password: "postgres"
+            encoding: unicode
+          EOF
 
       - name: Install dependencies
         working-directory: redmine
