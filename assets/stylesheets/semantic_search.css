@@ -1,0 +1,133 @@
+.search-result-issue {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background-color: #fff;
+}
+
+.search-result-issue .issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.search-result-issue .issue-title {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.search-result-issue .issue-title .issue-link {
+  text-decoration: none;
+}
+
+.search-result-issue .issue-meta .status,
+.search-result-issue .issue-meta .priority {
+  margin-left: 8px;
+  font-size: 0.9em;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.search-result-issue .issue-body .description {
+  margin-bottom: 10px;
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #555;
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.search-result-issue .issue-footer {
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+.search-result-issue .issue-footer .author {
+  margin-bottom: 5px;
+}
+
+.search-result-issue .attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.search-result-issue .attribute {
+  display: flex;
+  align-items: center;
+}
+
+.search-result-issue .attribute .label {
+  font-weight: bold;
+  margin-right: 5px;
+  color: #333;
+}
+
+.search-result-issue .attribute .value {
+  color: #555;
+}
+
+#query_form .box {
+  padding: 15px;
+}
+
+.search-form-box .search-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.search-form-box .search-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.search-form-box .search-query-input {
+  flex-grow: 1;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  margin-right: -1px;
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.search-form-box .search-query-input:focus {
+  border-color: #999;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.search-form-box .search-submit-button {
+  padding: 8px 15px;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  height: 36px;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.search-form-box .search-submit-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.search-form-box .note {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+#search-results-list.search-results {
+  margin-top: 15px;
+}
